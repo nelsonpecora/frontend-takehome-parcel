@@ -61,44 +61,45 @@
     <header class="section-header">
       <h2 class="section-title">{{ title }}</h2>
       <button v-if="collapse" type="button" class="section-collapse-button" :class="buttonClass" v-html="caret" @click="toggleCollapse"></button>
+      <!-- <search-form v-else @list-update="updateList"></search-form> -->
     </header>
     <div v-if="isExpanded" class="section-body">
-      <gem v-for="item in list" :item="item" :action="action" @action="doAction"></gem>
+      <gem v-for="item in list" :item="item" :action="action" :actionIcon="actionIcon" @action="doAction"></gem>
       <p v-if="!list.length"  class="no-gems">No gems are to be found in these halls</p>
     </div>
   </section>
 </template>
 
 <script>
-import caret from '../../media/caret.svg';
-import Gem from './gem';
+  import caret from '../../media/caret.svg';
+  import Gem from './gem';
 
-export default {
-  name: 'gem-section',
-  props: ['title', 'collapse', 'list', 'action'],
-  data() {
-    return {
-      caret,
-      isExpanded: true
-    };
-  },
-  computed: {
-    buttonClass() {
+  export default {
+    name: 'gem-section',
+    props: ['title', 'collapse', 'list', 'action', 'actionIcon'],
+    data() {
       return {
-        'is-collapsed': !this.isExpanded
-      }
-    }
-  },
-  methods: {
-    toggleCollapse() {
-      this.isExpanded = !this.isExpanded;
+        caret,
+        isExpanded: true
+      };
     },
-    doAction(item) {
-      this.$emit('action', item);
+    computed: {
+      buttonClass() {
+        return {
+          'is-collapsed': !this.isExpanded
+        }
+      }
+    },
+    methods: {
+      toggleCollapse() {
+        this.isExpanded = !this.isExpanded;
+      },
+      doAction(item) {
+        this.$emit('action', item);
+      }
+    },
+    components: {
+      Gem
     }
-  },
-  components: {
-    Gem
   }
-}
 </script>

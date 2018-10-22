@@ -42,31 +42,42 @@
       <p class="page-byline">By Nelson Pecora</p>
       <img class="page-motif" src="../../media/dragon.png" />
     </header>
-    <gem-section title="My Hoard" :collapse="true" :list="localGems" action="Release" @action="remove"></gem-section>
+    <gem-section title="My Hoard" :collapse="true" :list="localGems" action="Discard" @action="remove"></gem-section>
     <gem-section title="The Wilds" :list="allGems" action="Covet" @action="save"></gem-section>
   </section>
 </template>
 
 <script>
-import GemSection from './gem-section';
+  import GemSection from './gem-section';
 
-export default {
-  data() {
-    return {
-      localGems: [],
-      allGems: []
-    };
-  },
-  methods: {
-    save() {
-
+  export default {
+    data() {
+      return {
+        localGems: [],
+        allGems: [{
+          "name": "builder",
+          "authors": "Jim Weirich",
+          "info": "Builder provides a number of builder objects that make creating structured data\nsimple to do.  Currently the following builder objects are supported:\n\n* XML Markup\n* XML Events\n",
+          "project_uri": "https://rubygems.org/gems/builder",
+        },
+        {
+          "name": "jbuilder",
+          "authors": "David Heinemeier Hansson",
+          "info": "Create JSON structures via a Builder-style DSL",
+          "project_uri": "https://rubygems.org/gems/jbuilder",
+        }]
+      };
     },
-    remove() {
+    methods: {
+      save() {
 
+      },
+      remove() {
+
+      }
+    },
+    components: {
+      GemSection
     }
-  },
-  components: {
-    GemSection
   }
-}
 </script>

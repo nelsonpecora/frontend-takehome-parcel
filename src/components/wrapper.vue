@@ -38,19 +38,35 @@
 <template>
   <section class="wrapper">
     <header class="header">
-      <h1 class="page-title">The bountiful Hoard</h1>
+      <h1 class="page-title">The Bountiful Hoard</h1>
       <p class="page-byline">By Nelson Pecora</p>
       <img class="page-motif" src="../../media/dragon.png" />
     </header>
+    <gem-section title="My Hoard" :collapse="true" :list="localGems" action="Release" @action="remove"></gem-section>
+    <gem-section title="The Wilds" :list="allGems" action="Covet" @action="save"></gem-section>
   </section>
 </template>
 
 <script>
-'use strict';
+import GemSection from './gem-section';
 
 export default {
   data() {
-    return {};
+    return {
+      localGems: [],
+      allGems: []
+    };
+  },
+  methods: {
+    save() {
+
+    },
+    remove() {
+
+    }
+  },
+  components: {
+    GemSection
   }
 }
 </script>

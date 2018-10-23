@@ -60,6 +60,7 @@
 </template>
 
 <script>
+  import { pick } from 'lodash';
   import GemSection from './gem-section';
   import { createStore } from 'store/src/store-engine';
   import localStore from 'store/storages/localStorage';
@@ -99,7 +100,7 @@
           return;
         }
 
-        fetch(`http://localhost:3000/api/v1/search.json?query=${encodeURIComponent(inputText)}`)
+        return fetch(`http://localhost:3000/api/v1/search.json?query=${encodeURIComponent(inputText)}`)
           .then((res) => {
             if (!res.status || res.status < 200 || res.status >= 400) {
               this.sectionMessage = ERROR_MESSAGE;
@@ -109,7 +110,9 @@
             }
           })
           .then((gemList) => {
-            this.allGems = gemList.map(({ name, project_uri, authors, info }) => ({ name, project_uri, authors, info }));
+            // only use the properties we care about,
+            // since we're potentially putting the whole objects into localStorage
+            this.allGems = gemList.map((gem) => pick(gem, ['name', 'project_uri', 'authors', 'info']));
 
             if (!gemList.length && inputText) {
               this.sectionMessage = 'The wilds hold nothing for you'

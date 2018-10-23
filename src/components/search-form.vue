@@ -46,7 +46,7 @@
 
 <template>
   <form class="search-form" @submit.prevent="updateList">
-    <input class="search-input" type="search" v-model="inputText" />
+    <input type="search" class="search-input" v-model="inputText" />
     <button type="submit" class="search-button" v-html="quill"></button>
   </form>
 </template>

@@ -26,6 +26,7 @@
     "parcel": "^1.9.7",
     "parcel-plugin-inlinesvg": "0.0.14",
     "request": "^2.88.0",
+    "store": "^2.0.12",
     "vue": "^2.5.17",
     "vue-hot-reload-api": "^2.3.1"
   },

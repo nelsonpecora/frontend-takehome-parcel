@@ -50,7 +50,7 @@
   }
 
   .no-gems {
-    color: $grey-darker;
+    color: $grey-lighter;
     font-family: $body-stack;
     font-size: $h3-size;
     margin: 20px 0;
@@ -63,11 +63,11 @@
     <header class="section-header">
       <h2 class="section-title">{{ title }}</h2>
       <button v-if="collapse" type="button" class="section-collapse-button" :class="buttonClass" v-html="caret" @click="toggleCollapse"></button>
-      <!-- <search-form v-else @list-update="updateList"></search-form> -->
+      <search-form v-else @update-list="updateList"></search-form>
     </header>
     <div v-if="isExpanded" class="section-body">
       <gem v-for="item in list" :item="item" :action="action" :actionIcon="actionIcon" @action="doAction"></gem>
-      <p v-if="!list.length"  class="no-gems">No gems are to be found in these halls</p>
+      <p v-if="!list.length"  class="no-gems">{{ message }}</p>
     </div>
   </section>
 </template>
@@ -75,10 +75,11 @@
 <script>
   import caret from '../media/caret.svg';
   import Gem from './gem';
+  import SearchForm from './search-form';
 
   export default {
     name: 'gem-section',
-    props: ['title', 'collapse', 'list', 'action', 'actionIcon'],
+    props: ['title', 'collapse', 'sectionMessage', 'list', 'action', 'actionIcon'],
     data() {
       return {
         caret,
@@ -90,6 +91,9 @@
         return {
           'is-collapsed': !this.isExpanded
         }
+      },
+      message() {
+        return this.sectionMessage || 'No gems are to be found in these halls';
       }
     },
     methods: {
@@ -98,10 +102,14 @@
       },
       doAction(item) {
         this.$emit('action', item);
+      },
+      updateList(inputText) {
+        this.$emit('update-list', inputText);
       }
     },
     components: {
-      Gem
+      Gem,
+      SearchForm
     }
   }
 </script>

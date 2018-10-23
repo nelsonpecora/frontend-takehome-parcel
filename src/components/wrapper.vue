@@ -55,29 +55,30 @@
       <img class="page-motif" src="../media/dragon.png" />
     </header>
     <gem-section title="My Hoard" :collapse="true" :list="localGems" action="Discard" @action="remove"></gem-section>
-    <gem-section title="The Wilds" :list="allGems" action="Covet" @action="save"></gem-section>
+    <gem-section title="The Wilds" :section-message="sectionMessage" :list="allGems" action="Covet" @action="save" @update-list="updateList"></gem-section>
   </section>
 </template>
 
 <script>
   import GemSection from './gem-section';
+  import { createStore } from 'store/src/store-engine';
+  import localStore from 'store/storages/localStorage';
+  import memoryStore from 'store/storages/memoryStorage';
+
+  const store = createStore([
+      // persist to localStorage, falling back to memory storage when that's unavailable
+      localStore,
+      memoryStore
+    ]),
+    ERROR_MESSAGE = 'The fault lies not in our stars, but in ourselves',
+    SEARCH_MESSAGE = 'Enscribe your query to begin your quest';
 
   export default {
     data() {
       return {
         localGems: [],
-        allGems: [{
-          "name": "builder",
-          "authors": "Jim Weirich",
-          "info": "Builder provides a number of builder objects that make creating structured data\nsimple to do.  Currently the following builder objects are supported:\n\n* XML Markup\n* XML Events\n",
-          "project_uri": "https://rubygems.org/gems/builder",
-        },
-        {
-          "name": "jbuilder",
-          "authors": "David Heinemeier Hansson",
-          "info": "Create JSON structures via a Builder-style DSL",
-          "project_uri": "https://rubygems.org/gems/jbuilder",
-        }]
+        allGems: [],
+        sectionMessage: SEARCH_MESSAGE
       };
     },
     methods: {
@@ -86,6 +87,32 @@
       },
       remove() {
 
+      },
+      updateList(inputText) {
+        if (!inputText) {
+          this.sectionMessage = SEARCH_MESSAGE;
+          return;
+        }
+
+        fetch(`http://localhost:3000/api/v1/search.json?query=${encodeURIComponent(inputText)}`)
+          .then((res) => {
+            if (!res.status || res.status < 200 || res.status >= 400) {
+              this.sectionMessage = ERROR_MESSAGE;
+              return [];
+            } else {
+              return res.json();
+            }
+          })
+          .then((gemList) => {
+            this.allGems = gemList.map(({ name, project_uri, authors, info }) => ({ name, project_uri, authors, info }));
+
+            if (!gemList.length && inputText) {
+              this.sectionMessage = 'The wilds hold nothing for you'
+            }
+          })
+          .catch(() => {
+            this.sectionMessage = ERROR_MESSAGE;
+          });
       }
     },
     components: {

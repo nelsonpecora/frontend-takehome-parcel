@@ -80,7 +80,7 @@
     <div class="gem-text">
       <span class="gem-title">{{ itemTitle }} <a class="gem-link" :href="item.project_uri" target="_blank">(explore)</a></span>
       <span class="gem-authors">{{ item.authors }}</span>
-      <p class="gem-info">{{ itemInfo }}</p>
+      <p class="gem-info">{{ item.info }}</p>
     </div>
     <button type="button" class="gem-action" @click="$emit('action', item)">{{ action }}</button>
   </div>
@@ -93,15 +93,11 @@
     name: 'gem',
     props: ['item', 'action', 'actionIcon'],
     data() {
-      return {
-      };
+      return {};
     },
     computed: {
       itemTitle() {
         return this.item.name.split('-').map(capitalize).join(' ');
-      },
-      itemInfo() {
-        return truncate(this.item.info, 100)
       }
     }
   }

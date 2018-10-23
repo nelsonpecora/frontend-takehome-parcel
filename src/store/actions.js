@@ -30,7 +30,9 @@ export function remove(store, gem) {
   const index = store.state.localGems.findIndex((g) => g.project_uri === gem.project_uri),
     localGems = [...store.state.localGems];
 
-  localGems.splice(index, 1);
+  if (index > -1) {
+    localGems.splice(index, 1);
+  }
   store.commit('updateLocal', localGems);
   local.set(STORAGE_KEY, localGems);
 }
@@ -67,8 +69,7 @@ export function updateList(store, query) {
 
       store.commit('updateAll', allGems);
     })
-    .catch((e) => {
-      console.error(e);
+    .catch(() => {
       store.commit('updateMessage', ERROR_MESSAGE);
     });
 }

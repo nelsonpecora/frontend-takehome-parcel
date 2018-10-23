@@ -8,4 +8,5 @@ localVue.use(Vuex);
 
 localVue.config.productionTip = false;
 window.shallowMount = shallowMount; // don't render child components
+window.localVue = localVue;
 window.fetch = fetchMock;

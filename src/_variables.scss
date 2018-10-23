@@ -1,0 +1,22 @@
+// colors
+$light: #efefef;
+$grey-lighter: #666;
+$grey-darker: #444;
+$dark: #111;
+
+// typography
+$title-stack: 'Parisienne', cursive;
+$body-stack: 'Averia Libre', serif;
+
+// typographic scale: we're using augmented fourths,
+// but adjusting the type based on the viewport width.
+// it's a pretty neat technique, and solves the issues that
+// simply using vw units for font-size presents
+// we're setting the scale in wrapper.vue (on the html),
+// so we can use rems throughout the app
+$title-size: 3.998rem;
+$h1-size: 2.827rem;
+$h2-size: 1.999rem;
+$h3-size: 1.414rem;
+$body-size: 1rem;
+$subtext-size: 0.707rem;

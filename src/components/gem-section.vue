@@ -1,6 +1,8 @@
-<style>
+<style lang="scss">
+  @import '../variables.scss';
+
   .gem-section {
-    background-image: url(../../media/divider.png);
+    background-image: url(../media/divider.png);
     background-position: top;
     background-repeat: no-repeat;
     margin: 20px auto;
@@ -16,8 +18,8 @@
   }
 
   .section-title {
-    font-family: 'Parisienne', cursive;
-    font-size: 4.5vw;
+    font-family: $title-stack;
+    font-size: $h2-size;
     margin: 0;
   }
 
@@ -25,7 +27,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    fill: #666;
+    fill: $grey-lighter;
     outline: none;
     transition: fill 200ms ease-out, transform 200ms ease-out;
   }
@@ -36,11 +38,11 @@
 
   .section-collapse-button:hover,
   .section-collapse-button:focus {
-    fill: #444;
+    fill: $grey-darker;
   }
 
   .section-collapse-button:active {
-    fill: #111;
+    fill: $dark;
   }
 
   .section-collapse-button svg {
@@ -48,9 +50,9 @@
   }
 
   .no-gems {
-    color: #444;
-    font-family: 'Averia Libre', serif;
-    font-size: 4vw;
+    color: $grey-darker;
+    font-family: $body-stack;
+    font-size: $h3-size;
     margin: 20px 0;
     text-align: center;
   }
@@ -71,7 +73,7 @@
 </template>
 
 <script>
-  import caret from '../../media/caret.svg';
+  import caret from '../media/caret.svg';
   import Gem from './gem';
 
   export default {

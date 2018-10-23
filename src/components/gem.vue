@@ -1,4 +1,6 @@
-<style>
+<style lang="scss">
+  @import '../variables.scss';
+
   .gem {
     align-items: flex-start;
     display: flex;
@@ -16,60 +18,60 @@
 
   .gem-title {
     flex: 0 0 100%;
-    font-family: 'Averia Libre', serif;
-    font-size: 3vw;
+    font-family: $body-stack;
+    font-size: $h3-size;
     margin: 0;
   }
 
   .gem-link {
-    color: #666;
-    font-size: 2.2vw;
+    color: $grey-lighter;
+    font-size: $subtext-size;
     padding-left: 5px;
     text-decoration: none;
   }
 
   .gem-link:hover,
   .gem-link:focus {
-    color: #444;
+    color: $grey-darker;
   }
 
   .gem-link:active {
-    color: #111
+    color: $dark;
   }
 
   .gem-authors {
     flex: 0 0 100%;
-    font-family: 'Averia Libre', serif;
-    font-size: 2.5vw;
+    font-family: $body-stack;
+    font-size: $body-size;
     margin: 10px 0 0 20px;
   }
 
   .gem-info {
     flex: 0 0 100%;
-    font-family: 'Averia Libre', serif;
-    font-size: 2.5vw;
+    font-family: $body-stack;
+    font-size: $body-size;
     margin: 10px 0 0 20px;
   }
 
   .gem-action {
-    color: #666;
+    color: $grey-lighter;
     background: none;
     border: none;
     cursor: pointer;
     flex: 0 0 auto;
-    font-family: 'Averia Libre', serif;
-    font-size: 3vw;
+    font-family: $body-stack;
+    font-size: $h3-size;
     outline: none;
     transition: color 200ms ease-out;
   }
 
   .gem-action:hover,
   .gem-action:focus {
-    color: #444;
+    color: $grey-darker;
   }
 
   .gem-action:active {
-    color: #111;
+    color: $dark;
   }
 </style>
 
@@ -86,14 +88,12 @@
 
 <script>
   import { capitalize, truncate } from 'lodash';
-  import attachment from '../../media/attachment.svg';
 
   export default {
     name: 'gem',
     props: ['item', 'action', 'actionIcon'],
     data() {
       return {
-        itemLink: attachment
       };
     },
     computed: {

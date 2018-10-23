@@ -30,17 +30,4 @@ describe('Gem', () => {
 
     expect(wrapper.html()).toContain('<span class="gem-authors">Unknown Author</span>');
   });
-
-  test('emits action on click', () => {
-    const wrapper = shallowMount(Gem, {
-      propsData: {
-        item: {
-          name: 'foo-bar'
-        }
-      }
-    });
-
-    wrapper.find('button').trigger('click');
-    expect(wrapper.emitted().action[0]).toEqual([{ name: 'foo-bar' }]);
-  });
 });

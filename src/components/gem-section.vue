@@ -64,10 +64,10 @@
     <header class="section-header">
       <h2 class="section-title">{{ title }}</h2>
       <button v-if="collapse" type="button" class="section-collapse-button" :class="buttonClass" v-html="caret" @click="toggleCollapse"></button>
-      <search-form v-else @update-list="updateList"></search-form>
+      <search-form v-else></search-form>
     </header>
     <div v-if="isExpanded" class="section-body">
-      <gem v-for="item in list" :item="item" :action="action" @action="doAction"></gem>
+      <gem v-for="item in list" :item="item" :action="action"></gem>
       <p v-if="!list.length"  class="no-gems">{{ message }}</p>
     </div>
   </section>
@@ -100,12 +100,6 @@
     methods: {
       toggleCollapse() {
         this.isExpanded = !this.isExpanded;
-      },
-      doAction(item) {
-        this.$emit('action', item);
-      },
-      updateList(inputText) {
-        this.$emit('update-list', inputText);
       }
     },
     components: {

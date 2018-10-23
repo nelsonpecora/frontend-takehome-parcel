@@ -1,51 +1,35 @@
-# Teachable frontend takehome
+# The Bountiful Hoard
 
-If you're reading this, you're likely a candidate for a frontend job at Teachable. You're going to be building a search application that takes a user's search query, hits the [Ruby Gems](https://rubygems.org/) search API endpoint, and displays the results in a list view with some added functionality (detailed below).
+A small Vue.js app that allows you to search for ruby gems and save your favorites, inspired by J.R.R. Tolkien.
 
-The application, once completed, should meet the following criteria:
+![](https://d3vv6lp55qjaqc.cloudfront.net/items/3d2z3r3o1C2b1u0c2633/Screen%20Shot%202018-10-23%20at%2011.35.09%20AM.png?X-CloudApp-Visitor-Id=100841)
 
-1. It have a search box that lets users search for Ruby Gems.
-2. It should display the results of the search in a list.
-3. Each Gem should have a button that lets users "save" and "unsave" Gems.
-4. It should have a way to view saved Gems, even after the browser window is refreshed (localStorage is a fine for this).
+## Getting Started
 
-Here's a few things we'll look for in our evaluation.
-
-1. Clean, well-organized code.
-2. Sensisble architecture choices that could scale well.
-3. A clean, functioning UI.
-4. Bonus points if you write tests.
-
-## Getting started
-
-### Step 1: Fork this repo and clone it
+### Step 1: Clone this repo
 
 ### Step 2: Install dependencies
 
-We have a few dependencies necessary to run the build and proxy server, the rest are up to you.
-
-```bash
+```
 npm install
 ```
 
 ### Step 3: Start the development server
 
-```bash
+```
 npm run dev
 ```
 
-### Step 4: Start coding
+## Usage
 
-We want to judge your ability to program UIs, not configure build tools. That's why we chose [Parcel](https://parceljs.org/) as a bundler, please consult the [documentation](https://parceljs.org/getting_started.html) if you run into any trouble.
+To extend the metaphor of the app perhaps beyond its breaking point:
 
-We added a CSS file as an example, feel free to delete that.
+* you find gems by _searching the wilds_, which you may then _covet_ in your _hoard_
+* you may _discard_ any unwanted gems from your _hoard_
+* you may expand and collapse your _hoard_ to show or hide gems
 
-### Step 5: Network requests
+## Notes
 
-You may have noticed the server.js file at the root of this application, that's there to solve cross-origin issues when making network requests. The server automatically starts up when running "npm run dev" or "npm run start".
-
-To see a sample request in action, run the following in your command line.
-
-```bash
-curl http://localhost:3000/api/v1/search.json?query=rails
-```
+* The typography scales to the viewport, so it looks good across almost all screen sizes
+* All of the `.vue` components have tests
+* Parcel is very interesting!

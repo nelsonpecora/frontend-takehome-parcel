@@ -54,73 +54,27 @@
       <p class="page-byline">By Nelson Pecora</p>
       <img class="page-motif" src="../media/dragon.png" />
     </header>
-    <gem-section title="My Hoard" :collapse="true" :list="localGems" action="Discard" @action="remove"></gem-section>
-    <gem-section title="The Wilds" :section-message="sectionMessage" :list="allGems" action="Covet" @action="save" @update-list="updateList"></gem-section>
+    <gem-section title="My Hoard" :collapse="true" :list="localGems" action="Discard"></gem-section>
+    <gem-section title="The Wilds" :section-message="sectionMessage" :list="allGems" action="Covet"></gem-section>
   </section>
 </template>
 
 <script>
-  import { pick } from 'lodash';
   import GemSection from './gem-section';
-  import { createStore } from 'store/src/store-engine';
-  import localStore from 'store/storages/localStorage';
-  import memoryStore from 'store/storages/memoryStorage';
-
-  const store = createStore([
-      // persist to localStorage, falling back to memory storage when that's unavailable
-      localStore,
-      memoryStore
-    ]),
-    ERROR_MESSAGE = 'The fault lies not in our stars, but in ourselves',
-    SEARCH_MESSAGE = 'Enscribe your query to begin your quest',
-    STORAGE_KEY = 'local-gems';
 
   export default {
     data() {
-      return {
-        localGems: store.get(STORAGE_KEY) || [],
-        allGems: [],
-        sectionMessage: SEARCH_MESSAGE
-      };
+      return {};
     },
-    methods: {
-      save(item) {
-        this.localGems.unshift(item);
-        store.set(STORAGE_KEY, this.localGems);
+    computed: {
+      localGems() {
+        return this.$store.state.localGems;
       },
-      remove(item) {
-        const index = this.localGems.indexOf(item);
-
-        this.localGems.splice(index, 1);
-        store.set(STORAGE_KEY, this.localGems);
+      allGems() {
+        return this.$store.state.allGems;
       },
-      updateList(inputText) {
-        if (!inputText) {
-          this.sectionMessage = SEARCH_MESSAGE;
-          return;
-        }
-
-        return fetch(`http://localhost:3000/api/v1/search.json?query=${encodeURIComponent(inputText)}`)
-          .then((res) => {
-            if (!res.status || res.status < 200 || res.status >= 400) {
-              this.sectionMessage = ERROR_MESSAGE;
-              return [];
-            } else {
-              return res.json();
-            }
-          })
-          .then((gemList) => {
-            // only use the properties we care about,
-            // since we're potentially putting the whole objects into localStorage
-            this.allGems = gemList.map((gem) => pick(gem, ['name', 'project_uri', 'authors', 'info']));
-
-            if (!gemList.length && inputText) {
-              this.sectionMessage = 'The wilds hold nothing for you'
-            }
-          })
-          .catch(() => {
-            this.sectionMessage = ERROR_MESSAGE;
-          });
+      sectionMessage() {
+        return this.$store.state.message;
       }
     },
     components: {

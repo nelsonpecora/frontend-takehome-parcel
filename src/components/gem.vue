@@ -82,7 +82,7 @@
       <span class="gem-authors">{{ itemAuthor }}</span>
       <p class="gem-info">{{ item.info }}</p>
     </div>
-    <button type="button" class="gem-action" @click="$emit('action', item)">{{ action }}</button>
+    <button type="button" class="gem-action" @click="doAction">{{ actionLabel }}</button>
   </div>
 </template>
 
@@ -101,6 +101,18 @@
       },
       itemAuthor() {
         return this.item.authors || 'Unknown Author';
+      },
+      actionLabel() {
+        return this.$store.state.localGems.find((gem) => gem.project_uri === this.item.project_uri) ? 'Discard' : this.action;
+      }
+    },
+    methods: {
+      doAction() {
+        if (this.actionLabel === 'Covet') {
+          this.$store.dispatch('save', this.item);
+        } else {
+          this.$store.dispatch('remove', this.item);
+        }
       }
     }
   }

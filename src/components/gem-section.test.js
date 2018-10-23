@@ -39,26 +39,4 @@ describe('GemSection', () => {
     wrapper.find('button').trigger('click');
     expect(wrapper.vm.isExpanded).toBe(false);
   });
-
-  test('emits event when gem emits action', () => {
-    const wrapper = shallowMount(GemSection, {
-      propsData: {
-        list: [{ name: 'foo-bar' }]
-      }
-    });
-
-    wrapper.vm.doAction({ name: 'foo-bar' });
-    expect(wrapper.emitted().action).toBeTruthy();
-  });
-
-  test('emits update-list on search', () => {
-    const wrapper = shallowMount(GemSection, {
-      propsData: {
-        list: [{ name: 'foo-bar' }]
-      }
-    });
-
-    wrapper.vm.updateList('rails');
-    expect(wrapper.emitted()['update-list']).toBeTruthy();
-  });
 });

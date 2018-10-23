@@ -1,9 +1,15 @@
 'use strict';
 import Vue from 'vue';
 import wrapper from './components/wrapper.vue';
+import store from './store/index';
 
-const Wrapper = Vue.component('wrapper', wrapper),
-  app = new Wrapper().$mount();
+Vue.component('wrapper', wrapper);
 
-// add the vue app to the page
-document.body.appendChild(app.$el);
+new Vue({
+  strict: true,
+  el: '#app',
+  render(h) {
+    return h('wrapper');
+  },
+  store
+});

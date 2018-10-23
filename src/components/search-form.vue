@@ -64,7 +64,7 @@
     },
     methods: {
       updateList() {
-        this.$emit('update-list', this.inputText)
+        this.$store.dispatch('updateList', this.inputText);
       }
     }
   }

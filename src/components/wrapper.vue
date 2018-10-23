@@ -71,22 +71,27 @@
       memoryStore
     ]),
     ERROR_MESSAGE = 'The fault lies not in our stars, but in ourselves',
-    SEARCH_MESSAGE = 'Enscribe your query to begin your quest';
+    SEARCH_MESSAGE = 'Enscribe your query to begin your quest',
+    STORAGE_KEY = 'local-gems';
 
   export default {
     data() {
       return {
-        localGems: [],
+        localGems: store.get(STORAGE_KEY) || [],
         allGems: [],
         sectionMessage: SEARCH_MESSAGE
       };
     },
     methods: {
-      save() {
-
+      save(item) {
+        this.localGems.unshift(item);
+        store.set(STORAGE_KEY, this.localGems);
       },
-      remove() {
+      remove(item) {
+        const index = this.localGems.indexOf(item);
 
+        this.localGems.splice(index, 1);
+        store.set(STORAGE_KEY, this.localGems);
       },
       updateList(inputText) {
         if (!inputText) {

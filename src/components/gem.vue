@@ -79,7 +79,7 @@
   <div class="gem">
     <div class="gem-text">
       <span class="gem-title">{{ itemTitle }} <a class="gem-link" :href="item.project_uri" target="_blank">(explore)</a></span>
-      <span class="gem-authors">{{ item.authors }}</span>
+      <span class="gem-authors">{{ itemAuthor }}</span>
       <p class="gem-info">{{ item.info }}</p>
     </div>
     <button type="button" class="gem-action" @click="$emit('action', item)">{{ action }}</button>
@@ -97,7 +97,10 @@
     },
     computed: {
       itemTitle() {
-        return this.item.name.split('-').map(capitalize).join(' ');
+        return this.item.name.split(/[-_]/).map(capitalize).join(' ');
+      },
+      itemAuthor() {
+        return this.item.authors || 'Unknown Author';
       }
     }
   }

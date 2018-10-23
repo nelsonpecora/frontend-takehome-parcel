@@ -5,9 +5,9 @@
     background-image: url(../media/divider.png);
     background-position: top;
     background-repeat: no-repeat;
-    margin: 20px auto;
+    margin: 40px auto;
     max-width: 800px;
-    padding-top: 20px;
+    padding-top: 14px;
     width: 100%;
   }
 
@@ -15,6 +15,7 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
   }
 
   .section-title {
@@ -66,7 +67,7 @@
       <search-form v-else @update-list="updateList"></search-form>
     </header>
     <div v-if="isExpanded" class="section-body">
-      <gem v-for="item in list" :item="item" :action="action" :actionIcon="actionIcon" @action="doAction"></gem>
+      <gem v-for="item in list" :item="item" :action="action" @action="doAction"></gem>
       <p v-if="!list.length"  class="no-gems">{{ message }}</p>
     </div>
   </section>
@@ -79,7 +80,7 @@
 
   export default {
     name: 'gem-section',
-    props: ['title', 'collapse', 'sectionMessage', 'list', 'action', 'actionIcon'],
+    props: ['title', 'collapse', 'sectionMessage', 'list', 'action'],
     data() {
       return {
         caret,
